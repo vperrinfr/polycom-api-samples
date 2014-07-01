@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Polycom VMR Management</title>
+</head>
+<body bgcolor="black">
+<div style="color: white; font-size: 34px;">VMR Passcode Management</div>
+<div style="background-color:#175e92; color: #175e92;font-size: 20px;">&nbsp</div>
+<div style="color: white; font-size: 15px;">
+<script src="base64.js"></script>
+</br>
+<form>
+DMA Hostname: <input type="text" name="dma" id="dma" ><br>
+Login: <input type="text" name="login" id="login" ><br>
+Password: <input type="password" name="password" id="password" ><br>
+<input type="submit" value="Retrieve info"></input>
+</form>
+</br>
+Your current VMR information:</br>
+Your Room ID: <span id="room_id"></span> <br />
+Your Chairperson Code: <span id="chair_pass"></span> <br />
+Your Conference Code: <span id="conf_pass"></span> <br />
+</div>
+<br /><br />
+<div style="color: white; font-size: 15px;">
+Enter new passcodes:<br />
+<form name='myForm2' id='myForm2'>
+My new Chairperson Code: <input type="text" name="chair_pass_new" id="chair_pass_new"><br>
+My new Conference Code: <input type="text" name="conf_pass_new" id="conf_pass_new">
+<input type="submit" value="Update VMR"></input></br>
+<span id="Update_good"></span> <br />
+</form>
+</div>
+
+<script src="app.js"></script>
+<br />
+
+
+</body>
+</html>
