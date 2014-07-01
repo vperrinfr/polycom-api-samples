@@ -1,0 +1,23 @@
+{
+  "name": "Polycom RealPresence CloudAXIS for Chrome",
+  "version": "1.5",
+  "description": "Create a CloudAXIS meeting from Google Chrome",
+  "icons": { "128": "icon_128.png" },
+  "browser_action": {
+    "default_title": "Polycom RealPresence CloudAXIS for Chrome",
+    "default_icon": "icon_16.png",
+    "default_popup": "feed.html"
+  },
+  "permissions": [
+    "tabs",
+    "http://news.google.com/*"
+  ],
+  "permissions": [
+          "storage"
+        ],
+  "manifest_version": 2,
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "permissions": [
+    "contextMenus", "tabs", "http://*/*", "https://*/*"
+  ]
+}

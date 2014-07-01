@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="feed.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <a id="title_a" tabIndex="0"><img id="titre" src="title.JPG" alt="Polycom CloudAXIS logo"></a>
+	
+	<div id="space">&nbsp</div>
+
+	<!--Start of Main Menu Div-->
+<div id="menu">
+
+	<div id="button1" class="button">
+		<div class="button1logo"></div>
+		<div class="ButtonTitle">Meet Now</div>
+	</div>
+
+	<div id="button2" class="button">
+		<div class="button2logo mktBut"></div>
+		<div class="ButtonTitle">Schedule Meeting</div>
+	</div>
+
+	<div id="button3" class="button" style="display:none">
+		<div class="button3logo mktBut"></div>
+		<div class="ButtonTitle">Create a local user</div>
+	</div>
+
+	<div id="button4" class="button">
+		<div class="button4logo mktBut"></div>
+		<div class="ButtonTitle">Settings</div>
+	</div>
+
+</div>
+<!--End of Main Menu Div-->
+
+<!--Settings-->
+<div id="setup_div" name="setup_div" style="display:none">
+<b>CloudAXIS Server Details</b><br><br>
+CloudAXIS WSP Hostname: <input type="text" name="cloudaxis_url" id="cloudaxis_url"><br>
+Login: <input type="text" name="login" id="login" ><br>
+Password: <input type="password" name="password" id="password" ><br>
+<div class="ButtonSetupeConfirm" id="ButtonSetupeConfirm">Confirm</div>
+</div>
+<!--End of settigns-->
+
+<!--MeetNow-->
+<div id="meetnow_div" style="display:none">
+<b>URL of the Meeting:</b><br>
+<a id="myAnchor" href="http://www.polycom.com">Polycom</a>
+<span id="meetnow_span"></span> <br />
+<div class="ButtonSetupeConfirm" id="ButtonSetupeConfirm">Confirm</div>
+</div>
+<!--End of MeetNow-->
+
+<!--Schedule-->
+<div id="schedule_div" style="display:none">
+<b>Event's Details</b><br><br>
+Event's Name: <input type="text" name="meeting_name" id="meeting_name" value="Scheduled Meeting"><br>
+Start Date: <input type="date" name="start_date" id="start_date"><br>
+Start Time: <input type="time" name="start_time" id="start_time"><br>
+End Time: <input type="time" name="end_time" id="end_time"><br>
+<div class="ButtonSetupeConfirm" id="ButtonScheduleConfirm">Confirm</div>
+</div>
+<!--End of Schedule-->
+
+<script src="feed.js"></script>
+</body>
+</html>
+
