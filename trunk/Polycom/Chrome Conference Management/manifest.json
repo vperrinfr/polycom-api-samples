@@ -1,0 +1,26 @@
+{
+  "manifest_version": 2,
+  "name": "Polycom Conference Manager",
+  "version": "1.5",
+  "minimum_chrome_version": "23",
+  "icons": {
+    "16": "icon_16.png",
+    "128": "icon_128.png"
+  },
+  "permissions": [
+  "http://www.google.com/",
+  "https://www.google.com/",
+  "http://*/",
+  "storage",
+  "contextMenus", 
+  "tabs", 
+  "http://*/*", 
+  "https://*/*"
+	],
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "app": {
+    "background": {
+      "scripts": ["main.js"]
+    }
+  }
+}
