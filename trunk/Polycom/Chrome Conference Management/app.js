@@ -87,7 +87,7 @@
 	{
 	  if ( event.preventDefault ) event.preventDefault();
 	  event.returnValue = false;
-	
+	begin.className = "btn btn-danger";
 		do_record(dma, login, pass, conf_id_public);
 		
 	}
@@ -146,15 +146,16 @@
 	{
 	  if ( event.preventDefault ) event.preventDefault();
 	  event.returnValue = false;
-		lock(dma, login, pass, conf_id_public);
+	  lock.className = "btn btn-danger";
+		do_lock(dma, login, pass, conf_id_public);
 	}
 	
 	function f_unlock(event)
 	{
 	  if ( event.preventDefault ) event.preventDefault();
 	  event.returnValue = false;
-	
-		unlock(dma, login, pass, conf_id_public);
+	lock.className = "btn btn-success";
+		do_unlock(dma, login, pass, conf_id_public);
 		
 	}
 		
@@ -163,6 +164,7 @@
 	{
 	  if ( event.preventDefault ) event.preventDefault();
 	  event.returnValue = false;
+	  begin.className = "btn btn-success";
 		stop_record(dma, login, pass, conf_id_public);
 	}
   
@@ -377,7 +379,7 @@ function do_mute_chair(dma, user, password, conf_id) {
 	xhr.open('POST',url);
 	
 	auth = make_base_auth(user,password);
-	
+	xhr.setRequestHeader("Content-type","application/vnd.plcm.plcm-conference-mute-all-except-request+xml");
 	xhr.setRequestHeader("Authorization", auth);
 	xhr.withCredentials = true;
 	xhr.send();
@@ -481,7 +483,6 @@ function stop_record(dma, user, password, conf_id) {
 	xhr.open('POST',url);
 	
 	auth = make_base_auth(user,password);
-	xhr.setRequestHeader("Content-type",application/vnd.plcm.plcm-conference-mute-all-except-request+xml);
 	xhr.setRequestHeader("Authorization", auth);
 	xhr.withCredentials = true;
 	xhr.send();
@@ -502,7 +503,7 @@ function stop_record(dma, user, password, conf_id) {
 }
 
  
-function lock(dma, user, password, conf_id) {
+function do_lock(dma, user, password, conf_id) {
   message_vmr = document.getElementById("message_vmr");
   message = document.getElementById("message");
   message.innerHTML="";
@@ -537,7 +538,7 @@ function lock(dma, user, password, conf_id) {
 }
 
 
-function unlock(dma, user, password, conf_id) {
+function do_unlock(dma, user, password, conf_id) {
   message_vmr = document.getElementById("message_vmr");
   message = document.getElementById("message");
   message.innerHTML="";

@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Polycom Conference Manager",
-  "version": "1.5",
+  "version": "1.7",
   "minimum_chrome_version": "23",
   "icons": {
     "16": "icon_16.png",
@@ -13,7 +13,6 @@
   "http://*/",
   "storage",
   "contextMenus", 
-  "tabs", 
   "http://*/*", 
   "https://*/*"
 	],
