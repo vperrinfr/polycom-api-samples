@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Polycom Conference Management App">
+    <meta name="author" content="Vincent Perrin">
+    <link rel="icon" href="favicon.ico">
+	
+<title>Polycom Reservation Manager (Supervisor)</title>
+	<!-- Bootstrap core CSS -->
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="./css/bootstrap-theme.min.css" rel="stylesheet">
+
+</head>
+<body role="document">
+<div class="container theme-showcase" role="main">
+  <!-- Fixed navbar -->
+    <div class="navbar navbar-default" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Polycom Reservation Manager (Supervisor)</a>
+        </div>
+      </div>
+    </div>
+	
+<div class="btn-group">
+<button id='save' class="btn btn-warning">Save your settings</button>
+<button id='retrieve' class="btn btn-warning">Retrieve your settings</button>
+</div>
+<p>
+<div class="form-group">
+Resource Manager FQDN:<input type='text' name='dma' id='dma' class="form-control" placeholder="IP address" value="">
+Username:<input type='text' name='login' id='login' class="form-control" placeholder="domain\username" value="">
+Password:<input type='password' name='password' id='password' class="form-control" placeholder="" value="">
+</div>
+<p>
+<div class="input-group">
+  <span class="input-group-addon">Name of the room/participants</span>
+  <input id="checklist" type="text" class="form-control">
+</div>
+</p>
+<div class="btn-group">
+<button id='participants' class="btn btn-info">List All Reservations</button>
+<button id='participants_list' class="btn btn-info">List Reservations by Rooms/participants</button>
+</div>
+<div class="btn-group">
+<button id='to_excel' class="btn btn-success">Download CSV</button>
+</div>
+</p>
+
+
+<span id="message"></span>
+<span id="message_vmr"></span>
+<span id="list_participants"></span>
+<script src="base64.js"></script>
+</br>
+<!-- Import of the business logic -->
+<script src="app.js"></script>
+<script src="jquery.min.js"></script>
+<!--<script src="excellentexport.min.js"></script>-->
+<br/>
+</div>
+</body>
+</html>
