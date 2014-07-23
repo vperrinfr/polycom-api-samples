@@ -16,6 +16,7 @@
   var conf_id_public = "";
   var list_participants="";
   var message = "";
+  var speaker="";
 
 	// Button listeners
 	var mute = document.getElementById('mute');
@@ -50,7 +51,18 @@
 	mute_chair.addEventListener('click', f_mute_chair, false);
 	var unmute_all = document.getElementById('unmute_all');
 	unmute_all.addEventListener('click', f_unmute_all, false);
-	  
+	
+	var show_speaker = document.getElementById('show_speaker');
+	show_speaker.addEventListener('click', f_show_speaker, false);
+	var mute_spoilsport = document.getElementById('mute_spoilsport');
+	mute_spoilsport.addEventListener('click', f_mute_spoilsport, false);
+	var disconnect = document.getElementById('disconnect');
+	disconnect.addEventListener('click', f_disconnect, false);
+	
+	var dialout = document.getElementById('dialout');
+	dialout.addEventListener('click', f_dialout, false);
+	
+	
 	function f_mute( event )
 	{
 	  if ( event.preventDefault ) event.preventDefault();
@@ -66,6 +78,23 @@
 		i++;
 		}
 	}
+	
+	function f_disconnect( event )
+	{
+	  if ( event.preventDefault ) event.preventDefault();
+	  event.returnValue = false;
+	var i=0;
+		while(document.getElementById("check_list"+i))
+		{
+			if(document.getElementById("check_list"+i).checked)
+		{console.log("check_list"+i + document.getElementById("check_list"+i).value);
+		do_disconnect(dma, login, pass, conf_id_public, document.getElementById("check_list"+i).value);
+		
+		}
+		i++;
+		}
+	}
+	
 	
 	function f_unmute( event )
 	{
@@ -92,11 +121,36 @@
 		
 	}
 	
+	function f_show_speaker(event)
+	{
+	  if ( event.preventDefault ) event.preventDefault();
+	  event.returnValue = false;
+	
+		speaker = do_show_speaker(dma, login, pass, conf_id_public);	
+	}
+	
+	function f_mute_spoilsport(event)
+	{
+	  if ( event.preventDefault ) event.preventDefault();
+	  event.returnValue = false;
+	console.log("ID" + speaker);
+	mute_part(dma, login, pass, conf_id_public, speaker);
+	}
+	
+	
 	function f_save(event)
 	{
 	  if ( event.preventDefault ) event.preventDefault();
 	  event.returnValue = false;
 	  save();
+		
+	}
+	
+	function f_dialout(event)
+	{
+	  if ( event.preventDefault ) event.preventDefault();
+	  event.returnValue = false;
+	  do_dialout(dma, login, pass, conf_id_public, document.getElementById('dialout_v').value);
 		
 	}
 	
@@ -184,6 +238,52 @@ if (typeof String.prototype.startsWith != 'function') {
     return this.indexOf(str) == 0;
   };
 }
+  
+  function do_show_speaker(dma, user, password, conf_id) {
+  
+  message_vmr = document.getElementById("message_vmr");
+  message = document.getElementById("message");
+  message.innerHTML="";
+  message_vmr.innerHTML="";
+  
+  url_init="https://" + dma + ":8443";
+  url = url_init + "/api/rest/conferences/" + conf_id + "/participants";
+  console.log(url);
+  
+  	var xhr = new XMLHttpRequest();
+	xhr.open('GET',url);
+	auth = make_base_auth(user,password);
+		xhr.setRequestHeader("Authorization", auth);
+	xhr.send();
+  
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+		
+			var items = xhr.responseXML.getElementsByTagName("plcm-participant");
+			
+			for (var n = 0; n < items.length; n++) 
+			{
+			console.log("User " + items[n].getElementsByTagName("display-name")[0].childNodes[0].nodeValue + " " + items[n].getElementsByTagName("speaker")[0].childNodes[0].nodeValue);
+				if(items[n].getElementsByTagName("speaker")[0].childNodes[0].nodeValue=="true")
+				{
+				console.log("User AB AB  " + items[n].getElementsByTagName("display-name")[0].childNodes[0].nodeValue + " " + items[n].getElementsByTagName("speaker")[0].childNodes[0].nodeValue);
+					message_vmr.innerHTML="<div class=\"alert alert-success\" role=\"alert\">The speaker is: " + items[n].getElementsByTagName("display-name")[0].childNodes[0].nodeValue + " </div>";
+					speaker =  items[n].getElementsByTagName("participant-identifier")[0].childNodes[0].nodeValue;
+					console.log("id = " + speaker);
+				}
+			}
+		
+		} else 
+		{
+            console.error("Something went wrong!");
+        }
+    }
+};
+
+}
+  
+  
   
 function list_part(dma, user, password, conf_id) {
   
@@ -295,6 +395,96 @@ message.innerHTML="<div class=\"alert alert-danger\" role=\"alert\">Fill in all 
 } 
 
 }
+
+function do_disconnect(dma, user, password, conf_id, part) {
+  message_vmr = document.getElementById("message_vmr");
+  message = document.getElementById("message");
+  message.innerHTML="";
+  message_vmr.innerHTML="";
+  
+  url_init="https://" + dma + ":8443";
+  url = url_init + "/api/rest/conferences/" + conf_id + "/participants/" + part + "/disconnect";
+  console.log(url);
+
+	var xhr = new XMLHttpRequest();
+	xhr.open('POST',url);
+	
+	auth = make_base_auth(user,password);
+	
+	xhr.setRequestHeader("Authorization", auth);
+	xhr.withCredentials = true;
+	xhr.send();
+  
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4) {
+        if (xhr.status === 204) {
+		
+		list_part(dma, user, password, conf_id);
+		message = document.getElementById("message");
+		message.innerHTML = "<div class=\"alert alert-success\" role=\"alert\">Well done! You successfully kicked someone from your meeting.</div>";
+		} else 
+		{
+            console.error("Something went wrong!");
+        }
+    }
+};
+}
+
+function add_part_body(telNumber)
+{
+var xml_Header = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\r\n" + "<ns3:plcm-participant xmlns=\"http://www.w3.org/2005/Atom\" xmlns:ns3=\"urn:com:polycom:api:rest:plcm-participant\">\r\n";
+var message = 
+	      		"<ns3:participant-identifier>286a2d42-6531-001f-0c83-00397edf2cf5</ns3:participant-identifier>\r\n" +
+	      		"<ns3:display-name>vperrin</ns3:display-name>\r\n" +
+	      		"<ns3:endpoint-identifier>vperrin</ns3:endpoint-identifier>\r\n" +
+	      		"<ns3:endpoint-name>vperrin</ns3:endpoint-name>\r\n" +
+	      		"<ns3:dial-string>" +
+	      		telNumber +
+	      		"</ns3:dial-string>\r\n" +
+	      		"<ns3:connection-status>CONNECTED_DIAL_IN</ns3:connection-status>\r\n" +
+	      		"<ns3:chairperson>false</ns3:chairperson>\r\n" +
+	      		"<ns3:lecturer>false</ns3:lecturer>\r\n" +
+	      		"<ns3:audio-mute>false</ns3:audio-mute>\r\n" +
+	      		"<ns3:video-mute>false</ns3:video-mute>\r\n" +
+	      		"</ns3:plcm-participant>\r\n";
+				console.log(xml_Header + message);
+return xml_Header + message;
+}
+
+
+function do_dialout(dma, user, password, conf_id, string) {
+  message_vmr = document.getElementById("message_vmr");
+  message = document.getElementById("message");
+  message.innerHTML="";
+  message_vmr.innerHTML="";
+  
+  url_init="https://" + dma + ":8443";
+  url = url_init + "/api/rest/conferences/" + conf_id + "/participants/";
+  console.log(url);
+
+	var xhr = new XMLHttpRequest();
+	xhr.open('POST',url);
+	auth = make_base_auth(user,password);
+	xhr.setRequestHeader("Authorization", auth);
+	xhr.setRequestHeader("Content-Type","application/vnd.plcm.plcm-participant+xml");
+	xhr.withCredentials = true;
+	xhr.send(add_part_body(string));
+  
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4) {
+        if (xhr.status === 201) {
+		
+		list_part(dma, user, password, conf_id);
+		message = document.getElementById("message");
+		message.innerHTML = "<div class=\"alert alert-success\" role=\"alert\">Well done! You successfully invited someone to your conference. Please refresh your participants list.</div>";
+		} else 
+		{
+            console.error("Something went wrong!");
+        }
+    }
+};
+}
+
 
 function mute_part(dma, user, password, conf_id, part) {
   message_vmr = document.getElementById("message_vmr");
@@ -683,7 +873,7 @@ function init() {
 				}
         } else 
 		{
-            message_vmr.innerHTML="<div class=\"alert alert-danger\" role=\"alert\">Have you trusted the DMA certificate? Click <a href=\""+ url_init + "/dma7000\">here</a></div>";
+            message_vmr.innerHTML="<div class=\"alert alert-danger\" role=\"alert\">Have you trusted the DMA certificate? Open that url: <mark>"+ url_init + "/dma7000</mark> in a new tab of your Chrome browser.</div>";
 			console.error("Something went wrong!" + xhr.status + " " +xhr.readyState);
         }
     }

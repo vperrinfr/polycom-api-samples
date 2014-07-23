@@ -1,7 +1,8 @@
 {
   "manifest_version": 2,
   "name": "Polycom Conference Manager",
-  "version": "1.7",
+  "short_name": "Vigilante",
+  "version": "2.2",
   "minimum_chrome_version": "23",
   "icons": {
     "16": "icon_16.png",
@@ -11,6 +12,7 @@
   "http://www.google.com/",
   "https://www.google.com/",
   "http://*/",
+  "tabs",
   "storage",
   "contextMenus", 
   "http://*/*", 

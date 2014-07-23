@@ -7,7 +7,7 @@
     <meta name="author" content="Vincent Perrin">
     <link rel="icon" href="favicon.ico">
 	
-<title>Polycom Conference Management (Vigilante)</title>
+<title>Polycom Conference Manager (Vigilante)</title>
 	<!-- Bootstrap core CSS -->
     <link href="./css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap theme -->
@@ -17,20 +17,25 @@
 <body role="document" >
 <div class="container theme-showcase" role="main">
   <!-- Fixed navbar -->
+  <p>
     <div class="navbar navbar-default" role="navigation">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">Polycom Conference Management (Vigilante)</a>
+          <a class="navbar-brand" href="#">Polycom Conference Manager (Vigilante)</a>
         </div>
       </div>
     </div>
 	
-
+<div class="row">
+  <div class="col-lg-6">
+  <div class="panel panel-info">
+  <div class="panel-heading">DMA Details & Initialization</div>
+  <div class="panel-body">
 <div class="form-group">
 DMA Host:<input type='text' name='dma' id='dma' class="form-control" placeholder="IP address" value="">
 Username:<input type='text' name='login' id='login' class="form-control" placeholder="domain\username" value="">
-Password:<input type='password' name='password' id='password' class="form-control" placeholder="" value="">
-VMR ID:<input type='text' name='room_id' id='room_id' class="form-control" placeholder="" value="">
+Password:<input type='password' name='password' id='password' class="form-control" placeholder="enter your password" value="">
+VMR ID:<input type='text' name='room_id' id='room_id' class="form-control" placeholder="your conf number or click on 'Verify your conference number'" value="">
 </div>
 <p>
 <div class="btn-group">
@@ -39,16 +44,26 @@ VMR ID:<input type='text' name='room_id' id='room_id' class="form-control" place
 </div>
 <p>
 <div class="btn-group">
-<button id='vmr' class="btn btn-success">Verify your on-going conferences numbers</button>
+<button id='participants' class="btn btn-info">Initialization & List Participants</button>
 </div>
+
+</div>
+</div>
+
+</div>
+<div class="col-lg-6">
+  <div class="panel panel-info">
+  <div class="panel-heading">Actions</div>
+  <div class="panel-body">
 <div class="btn-group">
-<button id='participants' class="btn btn-info">List Participants (initialization)</button>
+<button id='vmr' class="btn btn-success">Verify your on-going conferences numbers</button>
 </div>
 </p>
 <div class="btn-group">
 <button id='begin' class="btn btn-success">Begin Recording</button>
 <button id='stop' class="btn btn-success">End Recording</button>
 </div>
+<p>
 <div class="btn-group">
 <button id='lock' class="btn btn-success">Lock Conference</button>
 <button id='unlock' class="btn btn-success">Unlock Conference</button>
@@ -58,20 +73,54 @@ VMR ID:<input type='text' name='room_id' id='room_id' class="form-control" place
 <button class="btn btn-primary" name="mute" id="mute">Mute selected people</button>
 <button class="btn btn-primary" name="unmute" id="unmute">Unmute selected people</button>
 </div>
+</p>
 <div class="btn-group">
 <button class="btn btn-primary" name="mute_chair" id="mute_chair">Mute all except Chairpersons</button>
 <button class="btn btn-primary" name="unmute_all" id="unmute_all">Unmute Conf</button>
 </div>
 </p>
+<div class="btn-group">
+<button class="btn btn-primary" name="show_speaker" id="show_speaker">Show me the speaker</button>
+<button class="btn btn-primary" name="mute_spoilsport" id="mute_spoilsport">Mute the spoilsport</button>
+</div>
+<div class="btn-group">
+<button class="btn btn-danger" name="disconnect" id="disconnect">Disconnect selected people</button>
+</div>
+</p>
+<div class="input-group">
+     <span class="input-group-btn">
+        <button class="btn btn-success" type="button" name='dialout' id='dialout'>New Participant</button>
+      </span>
+      <input type="text" class="form-control" name='dialout_v' id='dialout_v' placeholder="enter SIP or h323">
+    
+</div><!-- /input-group -->
+<p>
+</div>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-lg-12">
 <span id="message"></span>
 <span id="message_vmr"></span>
+<p>	
+<div class="panel panel-info">
+  <div class="panel-heading">Meetings Details</div>
+  <div class="panel-body">
+<p class="text-center">
 <span id="list_participants"></span>
+</p></div>
+</div>
+</div>
+</div>
 <script src="base64.js"></script>
 </br>
 <!-- Import of the business logic -->
 <script src="app.js"></script>
 <script src="jquery.min.js"></script>
 <br/>
+<p class="text-right"><small><em>Author: Vincent Perrin</em></small></a></p>
 </div>
+
 </body>
 </html>
